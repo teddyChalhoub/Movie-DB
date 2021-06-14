@@ -26,7 +26,7 @@ app.get("/hello/:id(\\d+)", (req, res) => {
 });
 
 app.get("/search", (req, res) => {
-  let search = req.query.s;
+  const search = req.query.s;
   let resUserID;
 
   if (search != "") {

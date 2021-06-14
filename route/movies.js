@@ -73,7 +73,6 @@ router.get("/read/by-title", (req, res, next) => {
 });
 
 router.get("/read/id/:id(\\d+)", (req, res, next) => {
-    
   let userByIdObj = [];
 
   if (
@@ -90,6 +89,35 @@ router.get("/read/id/:id(\\d+)", (req, res, next) => {
   }
 
   res.send(userByIdObj);
+});
+
+router.get("/add", (req, res, next) => {
+  const title = req.query.title;
+  const year = req.query.year;
+  const rating = req.query.rating;
+  
+  let isYearDigitsFour = /^[1-9]\d{3}$/.test(year);
+
+  let ansObjt;
+
+
+  if (title !== "" && year !== "" && isYearDigitsFour) {
+    if (rating !== undefined && rating !== "") {
+      movies.push({ title: title, year: year, rating: rating });
+      ansObjt = { status: 200, data: movies };
+    } else {
+      movies.push({ title: title, year: year, rating: 4 });
+      ansObjt = { status: 200, data: movies };
+    }
+  } else {
+    ansObjt = {
+      status: 403,
+      error: true,
+      message: "you cannot create a movie without providing a title and a year",
+    };
+  }
+
+  res.send(ansObjt);
 });
 
 router.get("/create", (req, res, next) => {
