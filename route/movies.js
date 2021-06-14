@@ -95,11 +95,10 @@ router.get("/add", (req, res, next) => {
   const title = req.query.title;
   const year = req.query.year;
   const rating = req.query.rating;
-  
+
   let isYearDigitsFour = /^[1-9]\d{3}$/.test(year);
 
   let ansObjt;
-
 
   if (title !== "" && year !== "" && isYearDigitsFour) {
     if (rating !== undefined && rating !== "") {
@@ -120,6 +119,24 @@ router.get("/add", (req, res, next) => {
   res.send(ansObjt);
 });
 
+router.get("/delete/:id(\\d+)", (req, res, next) => {
+  let index = req.params.id - 1;
+  let deletedObjt;
+
+  if (movies.length >= req.params.id) {
+    movies.splice(index, 1);
+    deletedObjt = { status: 200, data: movies };
+  } else {
+    deletedObjt = {
+      status: 404,
+      error: true,
+      message: `the movie ${req.params.id} does not exist`,
+    };
+  }
+
+  res.send(deletedObjt);
+});
+
 router.get("/create", (req, res, next) => {
   res.send("movies create");
 });
@@ -128,8 +145,8 @@ router.get("/update", (req, res, next) => {
   res.send("movies update");
 });
 
-router.get("/delete", (req, res, next) => {
-  res.send("movies delete");
-});
+// router.get("/delete", (req, res, next) => {
+//   res.send("movies delete");
+// });
 
 module.exports = router;
