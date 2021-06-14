@@ -4,9 +4,9 @@
   "description": "Movie database challenge",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1", 
+    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js"
-},
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/teddyChalhoub/Movie-DB.git"
@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/teddyChalhoub/Movie-DB#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.12.13",
+    "mongoose-sequence": "^5.3.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"

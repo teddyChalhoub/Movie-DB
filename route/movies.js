@@ -1,4 +1,5 @@
 let express = require("express");
+const moviesModel = require("../models/movies-model");
 
 let router = express.Router();
 
@@ -92,31 +93,16 @@ router.get("/read/id/:id(\\d+)", (req, res, next) => {
 });
 
 router.post("/add", (req, res, next) => {
-  const title = req.query.title;
-  const year = req.query.year;
-  const rating = req.query.rating;
+  let newMovie = new moviesModel({
+    title: req.query.title,
+    year: req.query.year,
+    rating: req.query.rating,
+  });
 
-  let isYearDigitsFour = /^[1-9]\d{3}$/.test(year);
-
-  let ansObjt;
-
-  if (title !== "" && year !== "" && isYearDigitsFour) {
-    if (rating !== undefined && rating !== "") {
-      movies.push({ title: title, year: year, rating: rating });
-      ansObjt = { status: 200, data: movies };
-    } else {
-      movies.push({ title: title, year: year, rating: 4 });
-      ansObjt = { status: 200, data: movies };
-    }
-  } else {
-    ansObjt = {
-      status: 403,
-      error: true,
-      message: "you cannot create a movie without providing a title and a year",
-    };
-  }
-
-  res.send(ansObjt);
+  newMovie.save((err, newMovie) => {
+    if (err) res.send(err);
+    else res.send({ status: 200, data: newMovie });
+  });
 });
 
 router.delete("/delete/:id(\\d+)", (req, res, next) => {
