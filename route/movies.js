@@ -91,7 +91,7 @@ router.get("/read/id/:id(\\d+)", (req, res, next) => {
   res.send(userByIdObj);
 });
 
-router.get("/add", (req, res, next) => {
+router.post("/add", (req, res, next) => {
   const title = req.query.title;
   const year = req.query.year;
   const rating = req.query.rating;
@@ -119,7 +119,7 @@ router.get("/add", (req, res, next) => {
   res.send(ansObjt);
 });
 
-router.get("/delete/:id(\\d+)", (req, res, next) => {
+router.delete("/delete/:id(\\d+)", (req, res, next) => {
   let index = req.params.id - 1;
   let deletedObjt;
 
@@ -137,7 +137,7 @@ router.get("/delete/:id(\\d+)", (req, res, next) => {
   res.send(deletedObjt);
 });
 
-router.get("/update/:id(\\d+)", (req, res, next) => {
+router.put("/update/:id(\\d+)", (req, res, next) => {
   let title = req.query.title;
   let year = req.query.year;
   let rating = req.query.rating;
@@ -178,15 +178,15 @@ router.get("/update/:id(\\d+)", (req, res, next) => {
   res.send(updatedObjt);
 });
 
-router.get("/create", (req, res, next) => {
+router.post("/create", (req, res, next) => {
   res.send("movies create");
 });
 
-router.get("/update", (req, res, next) => {
+router.put("/update", (req, res, next) => {
   res.send("movies update");
 });
 
-router.get("/delete", (req, res, next) => {
+router.delete("/delete", (req, res, next) => {
   res.send("movies delete");
 });
 
