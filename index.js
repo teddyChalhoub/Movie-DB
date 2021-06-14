@@ -19,4 +19,26 @@ app.get("/time", (req, res) => {
   res.send(resTime);
 });
 
+app.get("/hello/:id(\\d+)", (req, res) => {
+  let resUserID = { status: 200, message: `hello ${req.params.id}` };
+  res.send(resUserID);
+});
+
+app.get("/search", (req, res) => {
+  let search = req.query.s;
+  let resUserID;
+
+  if (search != "") {
+    resUserID = { status: 200, message: "ok", data: search };
+  } else {
+    resUserID = {
+      status: 500,
+      error: true,
+      message: "you have to provide a search",
+    };
+  }
+
+  res.send(resUserID);
+});
+
 app.listen(3000);
