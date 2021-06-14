@@ -10,7 +10,6 @@ const movies = [
 ];
 
 router.use("/", (req, res, next) => {
-  console.log("entered");
   next();
 });
 
@@ -71,6 +70,26 @@ router.get("/read/by-title", (req, res, next) => {
   let byDateObj = { status: 200, data: movies };
 
   res.send(byDateObj);
+});
+
+router.get("/read/id/:id(\\d+)", (req, res, next) => {
+    
+  let userByIdObj = [];
+
+  if (
+    movies.length >= parseInt(req.params.id) &&
+    parseInt(req.params.id) !== 0
+  ) {
+    userByIdObj = { status: 200, data: movies[req.params.id - 1] };
+  } else {
+    userByIdObj = {
+      status: 404,
+      error: true,
+      message: `the movie ${req.params.id} does not exist`,
+    };
+  }
+
+  res.send(userByIdObj);
 });
 
 router.get("/create", (req, res, next) => {
