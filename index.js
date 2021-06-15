@@ -1,12 +1,20 @@
 let express = require("express");
 let movies = require("./route/movies");
+let login = require("./route/users-router");
 const mongoose = require("mongoose");
+let app = express();
 
 mongoose
-  .connect("mongodb://localhost:27017/movies")
+  .connect(
+    "mongodb+srv://teddy92:teddy123456@moviedb.osvwi.mongodb.net/movies",
+    {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+    }
+  )
   .then(() => {
-    let app = express();
-
     app.get("/", (req, res) => {
       res.send("ok");
     });
@@ -45,8 +53,9 @@ mongoose
 
       res.send(resUserID);
     });
-
+    app.use(express.json());
     app.use("/movies", movies);
+    app.use("/login", login);
 
     app.listen(3000);
   })
